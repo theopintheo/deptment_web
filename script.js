@@ -1,231 +1,267 @@
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Custom Cursor
-    const cursor = document.querySelector('.custom-cursor');
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
+    // 0. Preloader Logic
+    const preloader = document.querySelector('.preloader');
+    const loaderBar = document.querySelector('.loader-bar');
 
-    document.querySelectorAll('a, button, .course-card').forEach(item => {
-        item.addEventListener('mouseenter', () => cursor.classList.add('active'));
-        item.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-    });
-
-    // 1.1 Mobile Menu Toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            if (navLinks.style.display === 'flex') {
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '100%';
-                navLinks.style.left = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.backgroundColor = 'white';
-                navLinks.style.padding = '20px';
-                navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-
-                // Set link colors to be visible on white bg
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.style.color = '#333';
-                    link.style.margin = '10px 0';
+    if (preloader && loaderBar) {
+        // Simple loader bar animation
+        gsap.to(loaderBar, {
+            width: '100%',
+            duration: 1.5,
+            ease: 'power2.inOut',
+            onComplete: () => {
+                gsap.to(preloader, {
+                    opacity: 0,
+                    visibility: 'hidden',
+                    duration: 0.8,
+                    ease: 'power2.out'
                 });
             }
         });
     }
 
-    // 2. Preloader
-    const preloader = document.querySelector('.preloader');
-    const loaderBar = document.querySelector('.loader-bar');
+    // 0.1 Tech Doodle Animation
+    const doodleContainer = document.getElementById('doodle-container');
+    if (doodleContainer) {
+        const symbols = ['{ }', '< >', '[ ]', '/', '*', '&&', '||', '!', '?', '~', '=>', '()', '01'];
+        const symbolCount = 30;
 
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 10;
-        loaderBar.style.width = progress + '%';
-        if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-                document.body.style.cursor = 'auto'; // Re-enable default if customized
-                // Trigger hero animations after preloader
-                startHeroAnimations();
-            }, 500);
+        for (let i = 0; i < symbolCount; i++) {
+            const doodle = document.createElement('div');
+            doodle.classList.add('tech-doodle');
+            doodle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+
+            // Random positions
+            doodle.style.left = Math.random() * 100 + '%';
+            doodle.style.top = Math.random() * 100 + '%';
+
+            // Random moves
+            const moveX = (Math.random() - 0.5) * 400 + 'px';
+            const moveY = (Math.random() - 0.5) * 400 + 'px';
+            doodle.style.setProperty('--move-x', moveX);
+            doodle.style.setProperty('--move-y', moveY);
+
+            // Random animation params
+            doodle.style.animationDuration = 5 + Math.random() * 15 + 's';
+            doodle.style.animationDelay = -Math.random() * 20 + 's';
+            doodle.style.fontSize = 0.5 + Math.random() * 1.5 + 'rem';
+
+            doodleContainer.appendChild(doodle);
         }
-    }, 100);
+    }
 
-    // 3. Navbar Scroll Effect & Active Link Highlighting
+    // 1. Custom Cursor
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, .course-card').forEach(item => {
+            item.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            item.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+    }
+
+    // 2. Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
-    const sections = document.querySelectorAll('section[id], footer[id]');
-    const navLinksList = document.querySelectorAll('.nav-link');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    const options = {
-        threshold: 0.3,
-        rootMargin: "-20% 0px -20% 0px"
-    };
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                navLinksList.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    }
-                });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
         });
-    }, options);
+    }
 
-    sections.forEach(section => sectionObserver.observe(section));
 
-    // 4. Reveal Animations on Scroll
+
+    // 5. Innovation Hub Split/Join Animation
+    const sliceContainer = document.querySelector('.slice-container');
+    if (sliceContainer) {
+        const imageUrl = sliceContainer.getAttribute('data-image');
+        const sliceCount = 8;
+
+        for (let i = 0; i < sliceCount; i++) {
+            const slice = document.createElement('div');
+            slice.classList.add('slice-part');
+            slice.style.width = `${100 / sliceCount}%`;
+            slice.style.left = `${(100 / sliceCount) * i}%`;
+            slice.style.backgroundImage = `url(${imageUrl})`;
+            slice.style.backgroundPosition = `${(100 / (sliceCount - 1)) * i}% center`;
+            slice.style.backgroundSize = `${sliceCount * 100}% 100%`;
+            sliceContainer.appendChild(slice);
+        }
+
+        ScrollTrigger.create({
+            trigger: '#slice-trigger',
+            start: 'top 70%',
+            onEnter: () => sliceContainer.classList.add('joined'),
+            markers: false
+        });
+    }
+
+    // 6. Reveal Animations on Scroll
     const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active-reveal');
-                if (entry.target.classList.contains('counter')) {
-                    startCounter(entry.target);
-                }
             }
         });
     }, { threshold: 0.1 });
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // 5. Hero Text Animations
-    function startHeroAnimations() {
-        const heroTitle = document.querySelector('.reveal-text');
-        const heroP = document.querySelector('.reveal-p');
-        const heroBtns = document.querySelector('.reveal-btns');
+    // 7. Achievement Cards Floating & Hover Physics
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    const achievementGrid = document.querySelector('.achievements-grid');
 
-        setTimeout(() => heroTitle.classList.add('active-reveal'), 200);
-        setTimeout(() => heroP.classList.add('active-reveal'), 400);
-        setTimeout(() => heroBtns.classList.add('active-reveal'), 600);
+    if (achievementCards.length > 0) {
+        // Floating Sine Wave Animation
+        achievementCards.forEach((card, index) => {
+            gsap.to(card, {
+                y: '+=20',
+                duration: 2 + Math.random() * 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: Math.random() * 2
+            });
+
+            // Hover: Other cards drift away
+            card.addEventListener('mouseenter', () => {
+                achievementGrid.classList.add('has-hover');
+                achievementCards.forEach(otherCard => {
+                    if (otherCard !== card) {
+                        const rect = card.getBoundingClientRect();
+                        const otherRect = otherCard.getBoundingClientRect();
+
+                        // Calculate vector away from hovered card
+                        const dx = otherRect.left - rect.left;
+                        const dy = otherRect.top - rect.top;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        const driftX = (dx / distance) * 30;
+                        const driftY = (dy / distance) * 30;
+
+                        gsap.to(otherCard, {
+                            x: driftX,
+                            y: driftY,
+                            duration: 0.8,
+                            ease: 'power2.out',
+                            overwrite: 'auto'
+                        });
+                    }
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                achievementGrid.classList.remove('has-hover');
+                achievementCards.forEach(otherCard => {
+                    gsap.to(otherCard, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+                });
+            });
+        });
     }
 
-    // 6. Counter Animation
-    const counters = document.querySelectorAll('.counter');
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                startCounter(entry.target);
-                counterObserver.unobserve(entry.target);
+    // Update cursor targets for new cards
+    document.querySelectorAll('.achievement-card, .btn-link').forEach(item => {
+        item.addEventListener('mouseenter', () => cursor.classList.add('active'));
+        item.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+    });
+
+    // 8. Navigation Active State & ScrollSpy
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
+    const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname === '';
+
+    function updateActiveLink() {
+        if (!isHomePage) return; // Only ScrollSpy on home page
+
+        let current = "";
+        const scrollPos = window.scrollY + 150;
+
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                current = section.getAttribute("id");
             }
         });
-    }, { threshold: 0.5 });
 
-    counters.forEach(counter => counterObserver.observe(counter));
+        navLinks.forEach((link) => {
+            link.classList.remove("active");
+            const href = link.getAttribute("href");
+            if (href === `#${current}` || href === `index.html#${current}`) {
+                link.classList.add("active");
+            }
+        });
+    }
 
-    function startCounter(el) {
-        const target = +el.getAttribute('data-target');
-        let count = 0;
-        const speed = target / 100;
+    if (isHomePage) {
+        window.addEventListener('scroll', updateActiveLink);
+        updateActiveLink(); // Initial check
+    }
 
-        const updateCount = () => {
-            count += speed;
-            if (count < target) {
-                el.innerText = Math.ceil(count);
-                setTimeout(updateCount, 20);
+    // Smooth Scroll for anchor links
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href.startsWith('#') && isHomePage) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    const offset = 80;
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = targetElement.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Mobile menu close if exists
+                    const navLinksContainer = document.querySelector('.nav-links');
+                    if (navLinksContainer && navLinksContainer.classList.contains('active')) {
+                        navLinksContainer.classList.remove('active');
+                        const menuToggle = document.querySelector('.menu-toggle');
+                        const icon = menuToggle.querySelector('i');
+                        icon.classList.replace('fa-times', 'fa-bars');
+                    }
+                }
+            }
+        });
+    });
+
+    // 9. Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinksContainer = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinksContainer) {
+        menuToggle.addEventListener('click', () => {
+            navLinksContainer.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navLinksContainer.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-times');
             } else {
-                const suffix = el.getAttribute('data-suffix') || '';
-                el.innerText = target + suffix;
-            }
-        };
-        updateCount();
-    }
-
-    // 8. Photo Cut & Join (Slice Animation)
-    const sliceContainer = document.querySelector('.slice-container');
-    const sliceTrigger = document.querySelector('#slice-trigger');
-    const imageSrc = sliceContainer.getAttribute('data-image');
-    // Using an available image fallback if the one in attribute is missing
-    const realImage = imageSrc || 'college_building_real.png';
-
-    const sliceCount = 5; // Number of slices
-
-    for (let i = 0; i < sliceCount; i++) {
-        const slice = document.createElement('div');
-        slice.classList.add('slice-part');
-        slice.style.width = (100 / sliceCount) + '%';
-        slice.style.left = (i * (100 / sliceCount)) + '%';
-        slice.style.backgroundImage = `url('${realImage}')`;
-        slice.style.backgroundPosition = `-${i * (100 / sliceCount * 5)}% center`; // Adjusting for container width
-        // Correction for background position alignment
-        const posPercent = (i / (sliceCount - 1)) * 100;
-        slice.style.backgroundPosition = `${posPercent}% center`;
-
-        sliceContainer.appendChild(slice);
-    }
-
-    const sliceObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    sliceContainer.classList.add('joined');
-                }, 300);
-                sliceObserver.unobserve(entry.target);
+                icon.classList.replace('fa-times', 'fa-bars');
             }
         });
-    }, { threshold: 0.5 });
-
-    if (sliceTrigger) sliceObserver.observe(sliceTrigger);
-
-    // 9. Tech Doodle Animation
-    const doodleContainer = document.getElementById('doodle-container');
-    const doodleSymbols = ['{ }', '< >', '0 1', '[ ]', '( )', '=>', '/*', '*/', 'git', 'sql', 'php', 'js', 'py', '++', '--'];
-
-    function createDoodle() {
-        if (!doodleContainer) return;
-
-        const doodle = document.createElement('div');
-        doodle.classList.add('tech-doodle');
-        doodle.innerText = doodleSymbols[Math.floor(Math.random() * doodleSymbols.length)];
-
-        // Random starting position
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-
-        // Random movement vector
-        const moveX = (Math.random() - 0.5) * 400 + 'px';
-        const moveY = (Math.random() - 0.5) * 400 + 'px';
-
-        // Random size and duration (Increased size for more impact)
-        const size = Math.random() * 3 + 2 + 'rem';
-        const duration = Math.random() * 15 + 15 + 's';
-
-        doodle.style.left = startX + '%';
-        doodle.style.top = startY + '%';
-        doodle.style.fontSize = size;
-        doodle.style.setProperty('--move-x', moveX);
-        doodle.style.setProperty('--move-y', moveY);
-        doodle.style.animationDuration = duration;
-
-        doodleContainer.appendChild(doodle);
-
-        // Remove after animation finishes
-        setTimeout(() => {
-            doodle.remove();
-        }, parseFloat(duration) * 1000);
-    }
-
-    // Initial batch and continuous generation
-    if (doodleContainer) {
-        for (let i = 0; i < 20; i++) {
-            setTimeout(createDoodle, Math.random() * 5000);
-        }
-        setInterval(createDoodle, 1500);
     }
 });
+

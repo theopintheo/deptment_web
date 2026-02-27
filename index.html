@@ -15,6 +15,9 @@
         rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -33,20 +36,18 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="index.html" class="logo">
                 <span class="logo-text">DON <span class="highlight">BOSCO</span></span>
                 <span class="logo-sub">Arts & Science College</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About Us</a></li>
-                <li><a href="#academics" class="nav-link">Academics</a></li>
-                <li><a href="#campus" class="nav-link">Campus Life</a></li>
+                <li><a href="#about" class="nav-link">About Dept</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <div class="nav-cta">
-                <a href="#apply" class="btn btn-primary">Apply Now</a>
-            </div>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
@@ -59,14 +60,13 @@
             <div class="hero-overlay"></div>
             <div class="doodle-bg" id="doodle-container"></div>
             <div class="hero-content container">
-                <h1 class="reveal-text">Code Your Future At <br><span class="accent-text">Computer
+                <h1 class="reveal-text">Pioneering Excellence in <br><span class="accent-text">Computer
                         Applications</span></h1>
-                <p class="reveal-p">Master the digital landscape with our premier Bachelor of Computer Applications
-                    program.
-                    Innovation, logic, and creative problem-solving start here.</p>
+                <p class="reveal-p">The BCA department at Don Bosco Arts and Science College is an archive of technical
+                    innovation and student success. Explore our milestones and top-tier projects.</p>
                 <div class="hero-btns reveal-btns">
-                    <a href="#about" class="btn btn-gold">Explore BCA</a>
-                    <a href="#academics" class="btn btn-outline">Curriculum <i class="fas fa-code"></i></a>
+                    <a href="achievements.html" class="btn btn-gold">View Achievements</a>
+                    <a href="#projects" class="btn btn-outline">Featured Projects <i class="fas fa-terminal"></i></a>
                 </div>
             </div>
             <div class="scroll-indicator">
@@ -74,25 +74,7 @@
             </div>
         </section>
 
-        <!-- Stats Section -->
-        <section class="stats container">
-            <div class="stat-item reveal-up">
-                <h3 class="counter" data-target="800" data-suffix="+">0</h3>
-                <p>BCA Students</p>
-            </div>
-            <div class="stat-item reveal-up" style="transition-delay: 0.2s;">
-                <h3 class="counter" data-target="25" data-suffix="+">0</h3>
-                <p>Tech Faculty</p>
-            </div>
-            <div class="stat-item reveal-up" style="transition-delay: 0.4s;">
-                <h3 class="counter" data-target="15" data-suffix="+">0</h3>
-                <p>Coding Clubs</p>
-            </div>
-            <div class="stat-item reveal-up" style="transition-delay: 0.6s;">
-                <h3 class="counter" data-target="96" data-suffix="%">0</h3>
-                <p>Placement %</p>
-            </div>
-        </section>
+
 
         <!-- About Section -->
         <section id="about" class="about container section-padding">
@@ -113,44 +95,46 @@
                         <li><i class="fas fa-check-circle"></i> Specialized Software Engineering Cell</li>
                         <li><i class="fas fa-check-circle"></i> Industry-Integrated Bootcamps</li>
                     </ul>
-                    <a href="#read-more" class="btn btn-text">Department Profile <i class="fas fa-arrow-right"></i></a>
+                    <a href="#about" class="btn btn-text">Department Profile <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>
 
-        <!-- Academics Section -->
-        <section id="academics" class="academics section-padding">
+
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects section-padding">
             <div class="container">
                 <div class="section-header">
-                    <h2>BCA Core Specializations</h2>
-                    <p>Our program offers specialized tracks to help you dominate the modern technology sectors.</p>
+                    <h2>Featured BCA Projects</h2>
+                    <p>Showcasing the technical prowess and innovative solutions built by our students.</p>
                 </div>
                 <div class="course-grid">
                     <div class="course-card reveal-up">
                         <div class="card-icon"><i class="fas fa-code-branch"></i></div>
                         <h3>Full Stack Dev</h3>
                         <p>End-to-end development using modern frameworks like React, Node, and SQL/NoSQL databases.</p>
-                        <a href="#" class="btn-link">Curriculum Details</a>
+                        <a href="#" class="btn-link">View Project</a>
                     </div>
                     <div class="course-card reveal-up" style="transition-delay: 0.2s;">
                         <div class="card-icon"><i class="fas fa-brain"></i></div>
                         <h3>Data Science & AI</h3>
                         <p>Leveraging Python and R for machine learning, data visualization, and predictive modeling.
                         </p>
-                        <a href="#" class="btn-link">Curriculum Details</a>
+                        <a href="#" class="btn-link">View Project</a>
                     </div>
                     <div class="course-card reveal-up" style="transition-delay: 0.4s;">
                         <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
                         <h3>App Development</h3>
                         <p>Focusing on native and cross-platform mobile solutions for iOS and Android environments.</p>
-                        <a href="#" class="btn-link">Curriculum Details</a>
+                        <a href="#" class="btn-link">View Project</a>
                     </div>
                     <div class="course-card reveal-up" style="transition-delay: 0.6s;">
                         <div class="card-icon"><i class="fas fa-shield-virus"></i></div>
                         <h3>Ethical Hacking</h3>
                         <p>Advanced techniques in network security, digital forensics, and proactive defense systems.
                         </p>
-                        <a href="#" class="btn-link">Curriculum Details</a>
+                        <a href="#" class="btn-link">View Project</a>
                     </div>
                 </div>
             </div>
@@ -179,77 +163,42 @@
                 </div>
             </div>
         </section>
-
-        <!-- Campus Life -->
-        <section id="campus" class="campus section-padding container">
-            <div class="section-header">
-                <h2>Campus Life</h2>
-                <p>Beyond the classroom: exploring activities, clubs, and modern facilities.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item large reveal-up">
-                    <img src="campus_life_library_1771953627667.png" alt="Modern Library">
-                    <div class="gallery-overlay">
-                        <h4>Digital Library</h4>
-                    </div>
-                </div>
-                <div class="gallery-item reveal-up">
-                    <div class="gallery-placeholder" style="background: #003366;">
-                        <i class="fas fa-volleyball-ball"></i>
-                        <span>Sports Complex</span>
-                    </div>
-                </div>
-                <div class="gallery-item reveal-up">
-                    <div class="gallery-placeholder" style="background: #FFD700; color: #333;">
-                        <i class="fas fa-theater-masks"></i>
-                        <span>Auditorium</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Newsletter / Contact CTA -->
-        <section class="newsletter container reveal-up">
-            <div class="newsletter-content">
-                <h2>Start Your Journey Today</h2>
-                <p>Join our mailing list for updates on admissions and upcoming events.</p>
-                <form class="news-form">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit" class="btn btn-gold">Subscribe</button>
-                </form>
-            </div>
-        </section>
     </main>
 
     <footer id="contact" class="footer">
         <div class="container footer-grid">
             <div class="footer-info">
-                <a href="#" class="logo footer-logo">
+                <a href="index.html" class="logo footer-logo">
                     <span class="logo-text">DON <span class="highlight">BOSCO</span></span>
                 </a>
                 <p>Leading the next generation of software architects and IT entrepreneurs. BCA Department Excellence.
                 </p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/donboscoasckannur/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/donboscoasc" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/donbosco_asc/" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/school/don-bosco-arts-&-science-college-angadikadavu/"
+                        target="_blank"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="footer-links">
-                <h4>Department Links</h4>
+                <h4>Department Archives</h4>
                 <ul>
-                    <li><a href="#">BCA Admissions</a></li>
-                    <li><a href="#">Tech Events</a></li>
-                    <li><a href="#">Student Projects</a></li>
-                    <li><a href="#">Alumni Network</a></li>
+                    <li><a href="#about">About Dept</a></li>
+                    <li><a href="achievements.html">Success Stories</a></li>
+                    <li><a href="blog.html">Student Blog</a></li>
+                    <li><a href="#projects">GitHub Repos</a></li>
+                    <li><a href="#contact">BCA Alumni</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
                 <h4>BCA Helpdesk</h4>
-                <p><i class="fas fa-map-marker-alt"></i> CSE Block, Don Bosco Campus, City, Zip</p>
-                <p><i class="fas fa-phone"></i> +91 123 456 BCA1</p>
-                <p><i class="fas fa-envelope"></i> bca@donbosco.edu</p>
+                <p><i class="fas fa-map-marker-alt"></i> Don Bosco Arts and Science College, Angadikadavu, Kannur,
+                    Kerala 670706</p>
+                <p><i class="fas fa-phone"></i> +91 490 2426010</p>
+                <p><i class="fas fa-envelope"></i> dbcasoffice@gmail.com</p>
             </div>
         </div>
         <div class="footer-bottom container">
